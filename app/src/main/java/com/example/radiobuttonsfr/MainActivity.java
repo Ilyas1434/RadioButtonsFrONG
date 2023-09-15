@@ -10,45 +10,49 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private Button bttn;
-    private EditText eT;
+    private TextView tV;
+    private Spinner s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Spinner spinner = findViewById(R.id.spinner_id);
-        CreateSpinner(spinner);
+
+        // initializing
+        s = findViewById(R.id.spinner_id);
+        bttn = findViewById(R.id.buttonId);
+
+        // Fills the spinner widget
+        CreateSpinner(s);
+        // adds an onclick event that displays the text in the textview
+        bttn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                // get the selection from the spinner/dropdown
+                String selection =   s.getSelectedItem().toString();
+
+                // Display the result
+                tV.setText(selection);
+
+            }
+        });
 
 
     }
     public void CreateSpinner(Spinner spin) {
-        String[] elems = {"Apple", "Banana", "Cantaloupe"};
+        String[] elems = {"Apple", "Banana", "Cherry"};
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, elems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
         bttn = findViewById(R.id.buttonId);
-        eT = findViewById(R.id.)
+        tV = findViewById(R.id.resultDisplay);
+
 
     }
-    public void onClick(View view) {
-        String numberOneText = numberOneEditText.getText().toString();
-        String numberTwoText = numberTwoEditText.getText().toString();
 
-        try {
-
-            String selection = spinner.getSelectedItem().toString();
-
-            // Display the result
-            resultView.setText(toDisplay);
-        } catch (Exception e) {
-            // When input isn't valid
-            resultView.setText("Invalid input");
-        }
-        MediaPlayer mp =MediaPlayer.create(MainActivity.this,R.raw.impact6291);
-        mp.start();
-    }
 }
